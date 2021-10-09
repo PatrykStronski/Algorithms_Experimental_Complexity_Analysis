@@ -10,7 +10,7 @@ CSV_EXPORT_FILE = './algorithm_exec_times_polynomials.csv'
 
 time_list = []
 
-for vec_len in range(1,1700):
+for vec_len in range(1,2001):
     vec = random.sample(range(0,2000), vec_len)
 
     vec_times = { 'length': vec_len  }

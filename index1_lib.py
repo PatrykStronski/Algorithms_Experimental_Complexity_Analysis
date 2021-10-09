@@ -1,3 +1,5 @@
+import math
+
 POLYNOMIAL_INPUT = 1.5
 
 def constantFunction(v: list[int]) -> int:
@@ -15,18 +17,27 @@ def productOfElems(v: list[int]) -> int:
         prod *= elem
     return prod
 
-def polynomialEvaluation(v: list[int]) -> float:
+def polynomialEvaluation(v: list[int]) -> (float, float):
     evalValue = 0.0
-    n = len(v) - 1
+    if len(v) > 1400:
+        v_1 = v[:1000]
+        v_2 = v[1000:]
+        return (polynomialEvaluation(v_2)[1], polynomialEvaluation(v_1)[1])
     for index in range(0, len(v)):
-        evalValue += v[index]*POLYNOMIAL_INPUT**(n-index)
-    return evalValue
+        evalValue += v[index]* math.pow(POLYNOMIAL_INPUT, index)
+    return (0, evalValue)
 
-def polynomialEvaluationHorner(v: list[int]) -> float:
-    res = v[0]
-    for ind in range(1,len(v)):
+def polynomialEvaluationHorner(v: list[int]) -> (float, float):
+    res = v[-1]
+    if len(v) > 1400:
+        v_1 = v[:1000]
+        v_2 = v[1000:]
+        return (polynomialEvaluationHorner(v_2)[1], polynomialEvaluationHorner(v_1)[1])
+    ind = len(v) - 2
+    while ind >= 0:
         res = res * POLYNOMIAL_INPUT + v[ind]
-    return res
+        ind -= 1
+    return (0, res)
 
 def bubbleSort(v: list[int]) -> list[int]:
     length = len(v)

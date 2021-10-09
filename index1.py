@@ -42,24 +42,27 @@ for vec_len in range(1,2001):
     
     vals = []
     for i in range(0, REPETITIONS):
+        new_vec = vec.copy()
         time_strt = time.time()
-        index1_lib.bubbleSort(vec)
+        index1_lib.bubbleSort(new_vec)
         time_end = time.time()
         vals.append((time_end - time_strt) * 1000)
     vec_times['bubble_sort'] = statistics.mean(vals)
     
     vals = []
     for i in range(0, REPETITIONS):
+        new_vec = vec.copy()
         time_strt = time.time()
-        index1_lib.quick_sort(vec)
+        index1_lib.quick_sort(new_vec)
         time_end = time.time()
         vals.append((time_end - time_strt) * 1000)
     vec_times['quicksort'] = statistics.mean(vals)
     
     vals = []
     for i in range(0, REPETITIONS):
+        new_vec = vec.copy()
         time_strt = time.time()
-        index1_lib.tim_sort(vec)
+        index1_lib.tim_sort(new_vec)
         time_end = time.time()
         vals.append((time_end - time_strt) * 1000)
     vec_times['timsort'] = statistics.mean(vals)
