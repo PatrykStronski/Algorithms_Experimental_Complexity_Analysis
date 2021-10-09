@@ -48,15 +48,15 @@ def bubbleSort(v: list[int]) -> list[int]:
     return v
 
 def pivot(v: list[int], start: int, end: int):
-    pivot = v[start]
-    low = start + 1
+    piv = v[start]
+    beginning = start + 1
     while True:
-        while low <= end and v[end] >= pivot:
+        while beginning <= end and v[end] >= piv:
             end = end - 1
-        while low <= end and v[low] <= pivot:
-            low = low + 1
-        if low <= end:
-            v[low], v[end] = v[end], v[low]
+        while beginning <= end and v[beginning] <= piv:
+            beginning = beginning + 1
+        if beginning <= end:
+            v[beginning], v[end] = v[end], v[beginning]
         else:
             break
     v[start], v[end] = v[end], v[start]
