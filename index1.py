@@ -1,64 +1,68 @@
 import csv
+import statistics
 import time
 import random
 import index1_lib
-from matrix import Matrix
+import sys
 
+sys.setrecursionlimit(50000)
+REPETITIONS = 5
 CSV_EXPORT_FILE = './algorithm_exec_times.csv'
 
 time_list = []
 
-for vec_len in range(1,1000):
-    vec = random.sample(range(-2000,2000), vec_len)
-    m1 = Matrix(vec_len)
-    m2 = Matrix(vec_len)
+for vec_len in range(1,2001):
+    vec = random.sample(range(0,2000), vec_len)
 
     vec_times = { 'length': vec_len  }
     
-    time_strt = time.time()
-    index1_lib.constantFunction(vec)
-    time_end = time.time()
-    vec_times['constant_function'] = time_end - time_strt
+    vals = []
+    for i in range(0, REPETITIONS):
+        time_strt = time.time()
+        index1_lib.constantFunction(vec)
+        time_end = time.time()
+        vals.append((time_end - time_strt) * 1000)
+    vec_times['constant_function'] = statistics.mean(vals)
     
-    time_strt = time.time()
-    index1_lib.sumOfElems(vec)
-    time_end = time.time()
-    vec_times['sum_of_elements'] = time_end - time_strt
+    vals = []
+    for i in range(0, REPETITIONS):
+        time_strt = time.time()
+        index1_lib.sumOfElems(vec)
+        time_end = time.time()
+        vals.append((time_end - time_strt) * 1000)
+    vec_times['sum_of_elements'] = statistics.mean(vals)
     
-    time_strt = time.time()
-    index1_lib.productOfElems(vec)
-    time_end = time.time()
-    vec_times['product_of_elements'] = time_end - time_strt
+    vals = []
+    for i in range(0, REPETITIONS):
+        time_strt = time.time()
+        index1_lib.productOfElems(vec)
+        time_end = time.time()
+        vals.append((time_end - time_strt) * 1000)
+    vec_times['product_of_elements'] = statistics.mean(vals)
     
-    time_strt = time.time()
-    index1_lib.polynomialEvaluation(vec)
-    time_end = time.time()
-    vec_times['polynomial_eval'] = time_end - time_strt
+    vals = []
+    for i in range(0, REPETITIONS):
+        time_strt = time.time()
+        index1_lib.bubbleSort(vec)
+        time_end = time.time()
+        vals.append((time_end - time_strt) * 1000)
+    vec_times['bubble_sort'] = statistics.mean(vals)
     
-    time_strt = time.time()
-    index1_lib.polynomialEvaluationHorner(vec)
-    time_end = time.time()
-    vec_times['polynomial_eval_horner'] = time_end - time_strt
+    vals = []
+    for i in range(0, REPETITIONS):
+        time_strt = time.time()
+        index1_lib.quick_sort(vec)
+        time_end = time.time()
+        vals.append((time_end - time_strt) * 1000)
+    vec_times['quicksort'] = statistics.mean(vals)
     
-    time_strt = time.time()
-    index1_lib.bubbleSort(vec)
-    time_end = time.time()
-    vec_times['bubble_sort'] = time_end - time_strt
-    
-    time_strt = time.time()
-    index1_lib.quick_sort(vec)
-    time_end = time.time()
-    vec_times['quicksort'] = time_end - time_strt
-    
-    time_strt = time.time()
-    index1_lib.tim_sort(vec)
-    time_end = time.time()
-    vec_times['timsort'] = time_end - time_strt
-
-    time_strt = time.time()
-    Matrix.multiply_matrices(m1, m2)
-    time_end = time.time()
-    vec_times['matrix_mult'] = time_end - time_strt
+    vals = []
+    for i in range(0, REPETITIONS):
+        time_strt = time.time()
+        index1_lib.tim_sort(vec)
+        time_end = time.time()
+        vals.append((time_end - time_strt) * 1000)
+    vec_times['timsort'] = statistics.mean(vals)
 
     time_list.append(vec_times)
 

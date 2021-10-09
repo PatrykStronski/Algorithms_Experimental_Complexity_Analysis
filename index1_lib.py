@@ -16,7 +16,7 @@ def productOfElems(v: list[int]) -> int:
     return prod
 
 def polynomialEvaluation(v: list[int]) -> float:
-    evalValue = 0
+    evalValue = 0.0
     n = len(v) - 1
     for index in range(0, len(v)):
         evalValue += v[index]*POLYNOMIAL_INPUT**(n-index)
@@ -39,18 +39,17 @@ def bubbleSort(v: list[int]) -> list[int]:
 def pivot(v: list[int], start: int, end: int):
     pivot = v[start]
     low = start + 1
-    high = end
     while True:
-        while low <= high and v[high] >= pivot:
-            high = high - 1
-        while low <= high and v[low] <= pivot:
+        while low <= end and v[end] >= pivot:
+            end = end - 1
+        while low <= end and v[low] <= pivot:
             low = low + 1
-        if low <= high:
-            v[low], v[high] = v[high], v[low]
+        if low <= end:
+            v[low], v[end] = v[end], v[low]
         else:
             break
-    v[start], v[high] = v[high], v[start]
-    return high
+    v[start], v[end] = v[end], v[start]
+    return end
 
 def sort_alg(v: list[int], start: int, end: int) -> list[int]:
     if start >= end:
